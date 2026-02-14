@@ -6,11 +6,15 @@ describe('API Endpoints', () => {
         const response = await request(app).get('/');
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Hola, DevOps!');
-    })
+    });
 
-    test('GET /health should return OK status', async () => {
+    test('GET / health should return OK status', async () => {
         const response = await request(app).get('/health');
         expect(response.status).toBe(200);
         expect(response.body.status).toBe('OK');
+    });
+
+    test('GET / version should return OK status', async () => {
+        const response = await request(app).get('/version');
     });
 });
