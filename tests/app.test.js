@@ -13,8 +13,10 @@ describe('API Endpoints', () => {
         expect(response.status).toBe(200);
         expect(response.body.status).toBe('OK');
     });
-
-    test('GET / version should return OK status', async () => {
+    
+    test('GET / version should return node version used', async () => {
         const response = await request(app).get('/version');
+        expect(response.status).toBe(200);
+        expect(response.body.message).toMatch(/^Node version: v18\.\d+\.\d+/);
     });
 });

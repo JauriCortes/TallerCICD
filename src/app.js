@@ -13,7 +13,7 @@ app.get('/version', (req, res) => {
     const VERSION = process.version;
     res.json({message: `Node version: ${VERSION}`})
     console.log(VERSION);
-})
+});
 
 module.exports = app;
 
