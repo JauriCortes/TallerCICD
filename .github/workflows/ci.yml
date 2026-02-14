@@ -38,20 +38,32 @@ jobs:
 
   deploy:
     needs: test
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Create status page
         run: |
-          mkdir -p public
-          echo '<html><body>' > public/index.html
-          echo '<h1>Deploy Status</h1>' >> public/index.html
-          echo '<p>Last deploy: '$(date)'</p>' >> public/index.html
-          echo '<p>Commit: '$GITHUB_SHA'</p>' >> public/index.html
-          echo '</body></html>' >> public/index.html
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+          mkdir public
+          echo "<html><body>" > public/index.html
+          echo "<h1>Deploy Status</h1>" >> public/index.html
+          echo "<p>Last deploy: $(date)</p>" >> public/index.html
+          echo "<p>Commit: $GITHUB_SHA</p>" >> public/index.html
+          echo "</body></html>" >> public/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
