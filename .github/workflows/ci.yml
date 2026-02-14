@@ -38,7 +38,7 @@ jobs:
 
   deploy:
     needs: test
-    if: github.ref == 'refs/heads/gh-pages'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       pages: write
