@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir -p public
           echo '<html><body>' > public/index.html
-          echo '<h1>Buena la rata</h1>' >> public/index.html
+          echo '<h1>Sistema arriba</h1>' >> public/index.html
           echo '<p>Last deploy: '$(date)'</p>' >> public/index.html
           echo '<p>Commit: '$GITHUB_SHA'</p>' >> public/index.html
           echo '</body></html>' >> public/index.html
